@@ -35,8 +35,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         emit(
           state.copyWith(
-              status: LoginStatus.failed,
-              errorMessage: "Wrong username or password"),
+            status: LoginStatus.failed,
+          ),
         );
       }
     } catch (e) {

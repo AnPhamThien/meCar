@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mecarassignment/presentation/discover.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'global_widgets/widgets.dart';
 import 'splash.dart';
 
@@ -34,7 +34,7 @@ class _RootScreenState extends State<RootScreen> {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (BuildContext context) => SplashScreen()));
             },
-            child: const Text('Log out'));
+            child: Text(AppLocalizations.of(context)!.logout));
       }),
     ),
   ];
@@ -54,37 +54,41 @@ class _RootScreenState extends State<RootScreen> {
         items: [
           getNavItem("assets/icons/home.svg"),
           getNavItem("assets/icons/search.svg"),
-          BottomNavigationBarItem(
-            label: '',
-            icon: SizedBox(
-              height: 40,
-              width: 75,
-              child: Stack(
-                children: [
-                  RadiantGradientMask(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(45))),
-                      height: 40,
-                      width: 75,
-                    ),
-                  ),
-                  const Center(
-                    child: Icon(
-                      Icons.add_rounded,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          getUploadButton(),
           getNavItem("assets/icons/chat.svg"),
           getNavItem("assets/icons/person.svg"),
         ],
       ),
     );
+  }
+
+  BottomNavigationBarItem getUploadButton() {
+    return BottomNavigationBarItem(
+          label: '',
+          icon: SizedBox(
+            height: 40,
+            width: 75,
+            child: Stack(
+              children: [
+                RadiantGradientMask(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(45))),
+                    height: 40,
+                    width: 75,
+                  ),
+                ),
+                const Center(
+                  child: Icon(
+                    Icons.add_rounded,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
   }
 
   BottomNavigationBarItem getNavItem(String svgPath) {

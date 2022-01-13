@@ -5,6 +5,7 @@ import 'package:mecarassignment/model/user.dart';
 import 'package:mecarassignment/presentation/splash.dart';
 import 'package:mecarassignment/utils/validation.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'global_widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -42,16 +43,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   _isRegister == true;
                 }
                 if (status == RegisterStatus.failed) {
-                  _getDialog("ERROR!", state.errorMessage, () {
+                  _getDialog(null, AppLocalizations.of(context)!.exist, () {
                     Navigator.pop(context);
                     context.read<RegisterBloc>().add(RegisterErrorPressed());
                   });
                 }
                 if (status == RegisterStatus.success) {
-                  _getDialog("CONGRATS!", "Account Registered", () {
+                  _getDialog(AppLocalizations.of(context)!.grat,
+                      AppLocalizations.of(context)!.regissuccess, () {
                     Navigator.pop(context);
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => SplashScreen()));
+                        builder: (BuildContext context) =>
+                            const SplashScreen()));
                   });
                 }
               },
@@ -60,88 +63,84 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 30),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const HeadLine(label: "Register"),
-                          GetUserInput(
-                            controller: _emailController,
-                            hint: 'Your email',
-                            isPassword: false,
-                            validator: Validation.emailValidation,
-                          ),
-                          GetUserInput(
-                            controller: _passwordController,
-                            hint: 'Your account password',
-                            isPassword: true,
-                            validator: Validation.loginValidation,
-                          ),
-                          GetUserInput(
-                            hint: 'Confirm password',
-                            isPassword: true,
-                            validator: (value) =>
-                                value == _passwordController.text
-                                    ? null
-                                    : "Passwords do not match",
-                          ),
-                          const SizedBox(height: 15),
-                          TextButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<RegisterBloc>().add(
-                                    RegisterSubmmited(_emailController.text,
-                                        _passwordController.text));
-                              }
-                            },
-                            style: TextButton.styleFrom(
-                                fixedSize: Size(
-                                    MediaQuery.of(context).size.width * .94,
-                                    65),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7)),
-                                backgroundColor: Colors.black,
-                                alignment: Alignment.center,
-                                primary: Colors.white,
-                                textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w900, fontSize: 18)),
-                            child: const Text("SIGN UP"),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            child: RichText(
-                              text: const TextSpan(
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 17),
-                                children: [
-                                  TextSpan(
-                                      text:
-                                          'By signing up, you agree to Photo’s '),
-                                  TextSpan(
-                                      text: 'Terms of Service',
-                                      style: TextStyle(
-                                          decoration:
-                                              TextDecoration.underline)),
-                                  TextSpan(text: ' and '),
-                                  TextSpan(
-                                      text: 'Privacy Policy.',
-                                      style: TextStyle(
-                                          decoration:
-                                              TextDecoration.underline)),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    //* REGISTER FORM
+                    child: getRegisterForm(context),
                   );
                 },
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Form getRegisterForm(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HeadLine(label: AppLocalizations.of(context)!.register),
+          GetUserInput(
+            controller: _emailController,
+            hint: AppLocalizations.of(context)!.emailtextfield,
+            isPassword: false,
+            validator: Validation.emailValidation,
+          ),
+          GetUserInput(
+            controller: _passwordController,
+            hint: AppLocalizations.of(context)!.passwordtextfield,
+            isPassword: true,
+            validator: Validation.passwordValidation,
+          ),
+          GetUserInput(
+            hint: AppLocalizations.of(context)!.confirmtextfield,
+            isPassword: true,
+            validator: (value) => value == _passwordController.text
+                ? null
+                : AppLocalizations.of(context)!.confirmerror,
+          ),
+          const SizedBox(height: 15),
+          TextButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                context.read<RegisterBloc>().add(RegisterSubmmited(
+                    _emailController.text, _passwordController.text));
+              }
+            },
+            style: TextButton.styleFrom(
+                fixedSize: Size(MediaQuery.of(context).size.width * .94, 65),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7)),
+                backgroundColor: Colors.black,
+                alignment: Alignment.center,
+                primary: Colors.white,
+                textStyle:
+                    const TextStyle(fontWeight: FontWeight.w900, fontSize: 18)),
+            child: Text(AppLocalizations.of(context)!.register.toUpperCase()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: RichText(
+              text: TextSpan(
+                style: const TextStyle(color: Colors.black, fontSize: 17),
+                children: [
+                  TextSpan(text: AppLocalizations.of(context)!.privacy1),
+                  TextSpan(
+                      text: AppLocalizations.of(context)!.privacy2,
+                      style: const TextStyle(
+                          decoration: TextDecoration.underline)),
+                  TextSpan(text: AppLocalizations.of(context)!.privacy3),
+                  TextSpan(
+                      text: AppLocalizations.of(context)!.privacy4,
+                      style: const TextStyle(
+                          decoration: TextDecoration.underline)),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -153,14 +152,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       builder: (BuildContext context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         actionsAlignment: MainAxisAlignment.center,
-        title: Text(label ?? 'Error !',
+        title: Text(label ?? AppLocalizations.of(context)!.error,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 25,
                 color: Colors.black87,
                 letterSpacing: 1.25,
                 fontWeight: FontWeight.bold)),
-        content: Text(content ?? 'Something went wrong',
+        content: Text(content ?? AppLocalizations.of(context)!.stwr,
             textAlign: TextAlign.left,
             style: const TextStyle(
                 fontSize: 20,

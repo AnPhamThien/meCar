@@ -26,8 +26,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       if (userList.any((user) => user.username == registerUser.username)) {
         emit(state.copyWith(
-            status: RegisterStatus.userexist,
-            errorMessage: "This account already exist"));
+          status: RegisterStatus.userexist,
+        ));
       } else {
         userList.add(registerUser);
         emit(
@@ -51,7 +51,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: RegisterStatus.initial, errorMessage: ''));
+      emit(state.copyWith(
+        status: RegisterStatus.initial,
+      ));
     } catch (e) {
       log(e.toString());
     }

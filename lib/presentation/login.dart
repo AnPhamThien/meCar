@@ -4,7 +4,7 @@ import 'package:mecarassignment/controller/login/login_bloc.dart';
 import 'package:mecarassignment/model/user.dart';
 import 'package:mecarassignment/presentation/root.dart';
 import 'package:mecarassignment/utils/validation.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'global_widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   _isLogin == true;
                 }
                 if (status == LoginStatus.failed) {
-                  _getDialog(state.errorMessage, () {
+                  _getDialog(AppLocalizations.of(context)!.loginerror, () {
                     Navigator.pop(context);
                     context.read<LoginBloc>().add(LoginErrorPressed());
                   });
@@ -60,66 +60,67 @@ class _LoginScreenState extends State<LoginScreen> {
                   return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 30),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const HeadLine(
-                              label: 'Log in',
-                            ),
-                            GetUserInput(
-                              controller: _usernameController,
-                              hint: 'Email, Username or Phone number',
-                              isPassword: false,
-                              validator: Validation.loginValidation,
-                            ),
-                            GetUserInput(
-                              controller: _passwordController,
-                              hint: 'Your account password',
-                              isPassword: true,
-                              validator: Validation.loginValidation,
-                            ),
-                            const SizedBox(height: 15),
-                            AbsorbPointer(
-                              absorbing: _isLogin,
-                              child: TextButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    context.read<LoginBloc>().add(
-                                        LoginSubmmited(_usernameController.text,
-                                            _passwordController.text));
-                                  }
-                                },
-                                style: TextButton.styleFrom(
-                                    fixedSize: Size(
-                                        MediaQuery.of(context).size.width * .94,
-                                        65),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(7)),
-                                    backgroundColor: Colors.black,
-                                    alignment: Alignment.center,
-                                    primary: Colors.white,
-                                    textStyle: const TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 18)),
-                                child: _isLogin
-                                    ? const Center(
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    : const Text("Login"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ));
+                      //* LOGIN FORM
+                      child: getLoginForm(context));
                 },
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Form getLoginForm(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HeadLine(
+            label: AppLocalizations.of(context)!.loginheadline,
+          ),
+          GetUserInput(
+            controller: _usernameController,
+            hint: AppLocalizations.of(context)!.emailtextfield,
+            isPassword: false,
+            validator: Validation.loginValidation,
+          ),
+          GetUserInput(
+            controller: _passwordController,
+            hint: AppLocalizations.of(context)!.passwordtextfield,
+            isPassword: true,
+            validator: Validation.loginValidation,
+          ),
+          const SizedBox(height: 15),
+          AbsorbPointer(
+            absorbing: _isLogin,
+            child: TextButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  context.read<LoginBloc>().add(LoginSubmmited(
+                      _usernameController.text, _passwordController.text));
+                }
+              },
+              style: TextButton.styleFrom(
+                  fixedSize: Size(MediaQuery.of(context).size.width * .94, 65),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7)),
+                  backgroundColor: Colors.black,
+                  alignment: Alignment.center,
+                  primary: Colors.white,
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.w900, fontSize: 18)),
+              child: _isLogin
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : Text(AppLocalizations.of(context)!.login),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -130,14 +131,14 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (BuildContext context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         actionsAlignment: MainAxisAlignment.center,
-        title: const Text('Error !',
+        title: Text(AppLocalizations.of(context)!.error,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 25,
                 color: Colors.black87,
                 letterSpacing: 1.25,
                 fontWeight: FontWeight.bold)),
-        content: Text(content ?? 'Something went wrong',
+        content: Text(content ?? AppLocalizations.of(context)!.stwr,
             textAlign: TextAlign.left,
             style: const TextStyle(
                 fontSize: 20,
