@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mecarassignment/presentation/discover.dart';
 
 import 'global_widgets/widgets.dart';
+import 'splash.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({Key? key}) : super(key: key);
@@ -26,8 +27,15 @@ class _RootScreenState extends State<RootScreen> {
     const Center(
       child: Text("Chat Screen"),
     ),
-    const Center(
-      child: Text("Profile Screen"),
+    Center(
+      child: Builder(builder: (context) {
+        return TextButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => SplashScreen()));
+            },
+            child: const Text('Log out'));
+      }),
     ),
   ];
   @override

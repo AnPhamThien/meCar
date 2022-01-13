@@ -1,14 +1,14 @@
 class User {
   final String username;
   final String password;
-  User({
-    this.username = '',
-    this.password = '',
-  });
+  User(
+    this.username,
+    this.password,
+  );
 
-  final List<User> userList = [User(username: 'admin', password: 'admin')];
+  static final List<User> userList = [User('admin', 'admin')];
 
-  List<User> getUserList() {
+  static List<User> getUserList() {
     return userList;
   }
 }

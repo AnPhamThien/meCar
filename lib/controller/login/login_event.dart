@@ -1,6 +1,7 @@
 part of 'login_bloc.dart';
 
-class LoginEvent {}
+class LoginEvent {
+}
 
 class LoginSubmmited extends LoginEvent {
   final String username;
@@ -8,3 +9,5 @@ class LoginSubmmited extends LoginEvent {
 
   LoginSubmmited(this.username, this.password);
 }
+
+class LoginErrorPressed extends LoginEvent {}

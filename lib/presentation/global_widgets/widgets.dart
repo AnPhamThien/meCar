@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class GetUserInput extends StatelessWidget {
   const GetUserInput({
     Key? key,
@@ -29,6 +31,12 @@ class GetUserInput extends StatelessWidget {
             borderSide: BorderSide(color: Colors.black, width: 2),
           ),
           enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black, width: 2),
+          ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black, width: 2),
+          ),
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black, width: 2),
           ),
           hintText: hint,

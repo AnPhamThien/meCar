@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mecarassignment/model/user.dart';
 import 'package:mecarassignment/presentation/global_widgets/widgets.dart';
 import 'package:mecarassignment/presentation/login.dart';
 import 'package:mecarassignment/presentation/register.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +35,7 @@ class SplashScreen extends StatelessWidget {
 
   SafeArea getBody(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final List<User> userList = User.getUserList();
     return SafeArea(
       child: SizedBox(
         height: size.height,
@@ -57,7 +69,7 @@ class SplashScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const LoginScreen();
+                        return LoginScreen(userList: userList);
                       }));
                     },
                     style: TextButton.styleFrom(
@@ -77,7 +89,9 @@ class SplashScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const RegisterScreen();
+                        return RegisterScreen(
+                          userList: userList,
+                        );
                       }));
                     },
                     style: TextButton.styleFrom(
