@@ -1,16 +1,30 @@
-# mecarassignment
+# Project name
+**MeCar Assignment**
 
-A new Flutter project.
+## Description:
+- this is a simple app with 4 main screen
 
-## Getting Started
+## Built With:
+- Dart
+- Flutter
+- Bloc
+- flutter_staggered_grid_view
+- flutter_svg
+- equatable
 
-This project is a starting point for a Flutter application.
+## In this application, you can:
+- Create an account
+- Login / Logout
+- Get all Post
 
-A few resources to get you started if this is your first Flutter project:
+## To run this application, you need:
+- Install VSCode (if you already have that, skip this step)
+- Install Flutter SDK and setting up the environment (you can also skip this step if you already done it)
+- Go to main.dart in lib folder and run the main function
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## When in splashscreen, you can:
+- Login by defaut account (admin,admin)
+- Create a new account and then login
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contact
+Phạm Thiên Ân - ThienAnPham.Dev@gmail.com
